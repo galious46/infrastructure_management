@@ -3,3 +3,5 @@ uvicorn
 requests
 pytest
 tox
+pytest-cov
+httpx
