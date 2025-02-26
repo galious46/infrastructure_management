@@ -4,7 +4,7 @@ from app.main import app
 client = TestClient(app)
 
 
-def test_get_joke():
+def test_get_programming_joke():
     response = client.get("/joke")
     assert response.status_code == 200
     assert "setup" in response.json()
