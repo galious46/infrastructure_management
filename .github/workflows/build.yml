@@ -25,7 +25,7 @@ jobs:
 
       - name: Run tests with coverage (optional)
         run: |
-          pytest app/ --cov=./app --cov-report=xml
+          pytest app/ --cov=. --cov-report=xml
         if: success()  # Выполняется только если есть тесты
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v4
