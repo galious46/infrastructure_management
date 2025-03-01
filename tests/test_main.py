@@ -1,5 +1,4 @@
 from unittest.mock import patch, Mock
-
 import requests
 from fastapi.testclient import TestClient
 from app.main import app
@@ -43,7 +42,7 @@ def test_get_programming_joke_failure():
 
     with patch("requests.get", return_value=mock_response):
         response = client.get("/joke")
-        assert response.status_code == 200  # FastAPI вернет 200 даже при ошибке, так как это часть логики
+        assert response.status_code == 200  # FastAPI вернет 200 даже при ошибке(это часть логики)
         data = response.json()
         assert "error" in data
         assert data["error"].startswith("Failed to fetch joke:")
@@ -83,7 +82,7 @@ def test_create_item_invalid_json():
 # Тест запуска main (проверяем, что uvicorn.run вызывается с правильными параметрами)
 def test_main_function():
     with patch("uvicorn.run") as mock_run:
-        from app.main import main
+        from app.main import main # pylint: disable=import-outside-toplevel
         main()
         mock_run.assert_called_once_with(
             "main:app", host="0.0.0.0", port=8000, reload=True
