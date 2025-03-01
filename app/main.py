@@ -1,7 +1,8 @@
-from fastapi import FastAPI
+from typing import Dict
 import requests
-from typing import List, Dict
 import uvicorn
+from fastapi import FastAPI
+
 
 app = FastAPI()
 
@@ -9,7 +10,7 @@ app = FastAPI()
 async def get_programming_joke() -> Dict:
     url = "https://official-joke-api.appspot.com/jokes/programming/random"
     try:
-        response = requests.get(url)
+        response = requests.get(url, timeout=30)
         response.raise_for_status()  # Проверка на ошибки HTTP
         joke_data = response.json()[0]  # API возвращает список с одним объектом
         return {
