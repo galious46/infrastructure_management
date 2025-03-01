@@ -20,6 +20,16 @@ async def get_programming_joke() -> Dict:
         return {"error": f"Failed to fetch joke: {str(e)}"}
 
 
+@app.get("/status")
+def get_status():
+    return {"status": "ok", "message": "Server is running"}
+
+
+@app.post("/items")
+def create_item(item: dict):
+    return {"id": 1, "data": item}
+
+
 def main():
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
 
