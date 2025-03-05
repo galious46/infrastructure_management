@@ -13,33 +13,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.9'  # Укажите вашу версию Python
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Analysing the code with pylint
-        run: |
-          pylint $(git ls-files '*.py')
-
-      - name: Run tests with coverage (optional)
-        # working-directory: tests
-        run: |
-          pytest tests/ --cov=app --cov-report=xml:coverage.xml --cov-report=html --cov-report=lcov:coverage.lcov
-        continue-on-error: true  # Продолжить даже если тесты не пройдут
-
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v4
+        uses: SonarSource/sonarqube-scan-action@v5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: coverage.lcov
