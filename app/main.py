@@ -6,7 +6,7 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-@app.get("/joke")
+@app.get("/jokes")
 async def get_programming_joke() -> Dict:
     url = "https://official-joke-api.appspot.com/jokes/programming/random"
     try:
